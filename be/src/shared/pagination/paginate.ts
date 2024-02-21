@@ -9,35 +9,25 @@ export async function paginate<T extends ObjectLiteral>(
   cursorColumn = 'id',
   defaultLimit = 25,
 ): Promise<any> {
-  const logger = new Logger('Pagination');
-
-  // pagination ordering
   query.orderBy({ [cursorColumn]: 'ASC' });
 
   const totalCountQuery = query.clone();
 
-  // FORWARD pagination
   if (paginationArgs.first) {
     if (paginationArgs.after) {
       const offsetId = Number(
         Buffer.from(paginationArgs.after, 'base64').toString('ascii'),
       );
-      logger.verbose(`Paginate AfterID: ${offsetId}`);
       query.where({ [cursorColumn]: MoreThan(offsetId) });
     }
 
     const limit = paginationArgs.first ?? defaultLimit;
 
     query.take(limit);
-  }
-
-  // REVERSE pagination
-  else if (paginationArgs.last && paginationArgs.before) {
+  } else if (paginationArgs.last && paginationArgs.before) {
     const offsetId = Number(
       Buffer.from(paginationArgs.before, 'base64').toString('ascii'),
     );
-    logger.verbose(`Paginate BeforeID: ${offsetId}`);
-
     const limit = paginationArgs.last ?? defaultLimit;
 
     query.where({ [cursorColumn]: LessThan(offsetId) }).take(limit);
@@ -54,9 +44,6 @@ export async function paginate<T extends ObjectLiteral>(
   const beforeQuery = totalCountQuery.clone();
 
   const afterQuery = beforeQuery.clone();
-
-  logger.verbose(`Paginate startCursorId: ${startCursorId}`);
-  logger.verbose(`Paginate endCursorId: ${endCursorId}`);
 
   let countBefore = 0;
   let countAfter = 0;
@@ -80,9 +67,6 @@ export async function paginate<T extends ObjectLiteral>(
       .getCount();
   }
 
-  logger.debug(`CountBefore:${countBefore}`);
-  logger.debug(`CountAfter:${countAfter}`);
-
   const edges = result.map((value) => {
     return {
       node: value,
@@ -96,10 +80,6 @@ export async function paginate<T extends ObjectLiteral>(
 
   pageInfo.hasNextPage = countAfter > 0;
   pageInfo.hasPreviousPage = countBefore > 0;
-  // pageInfo.countBefore = countBefore;
-  // pageInfo.countNext = countAfter;
-  // pageInfo.countCurrent = edges.length;
-  // pageInfo.countTotal = countAfter + countBefore + edges.length;
 
   return { edges, pageInfo };
 }
