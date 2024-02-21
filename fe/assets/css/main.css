@@ -1,0 +1,189 @@
+@import "fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --font-family: "Century Gothic";
+    --backgrounds-secondary: #f3f4f8;
+    --text-secondary: #5b5d6b;
+}
+
+body {
+    background-color: var(--backgrounds-secondary);
+    font-family: var(--font-family);
+}
+
+.form-control:focus-visible {
+    outline: none;
+}
+
+.btn-hover svg,
+.btn-hover img {
+    transition: transform 0.3s ease;
+    transform: translateX(0px);
+}
+
+.btn-hover:hover svg,
+.btn-hover:hover img {
+    transform: translateX(5px);
+}
+.item-radio-card input[type="radio"]:checked+label {
+    background: #000;
+    color: #fff;
+}
+
+input[type="checkbox"]:checked+.checked-box span:after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 7px;
+    width: 6px;
+    height: 14px;
+    border: solid rgba(237, 94, 138);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.right-content {
+    width: calc(100% - 716px);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+@media (max-width: 1279px) {
+    .right-content {
+        width: calc(100% - 500px);
+    }
+}
+
+@media (max-width: 1023px) {
+    .right-content {
+        width: 100%;
+    }
+}
+
+.sidebar-show .sidebar {
+    right: 0;
+}
+
+.sidebar-show .overlay {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(0deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.6) 100%);
+    z-index: 20;
+    position: fixed;
+}
+
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    max-width: 675px;
+    width: 100%;
+    right: -675px;
+    z-index: 1000;
+    bottom: 0;
+    background: white;
+    padding: 32px;
+    transition: all 0.2s ease-in-out;
+}
+
+.setting {
+    position: fixed;
+    height: 100vh;
+    max-width: 675px;
+    width: 100%;
+    right: -675px;
+    z-index: 1000;
+    bottom: 0;
+    background: white;
+    padding: 32px;
+    transition: all 0.2s ease-in-out;
+}
+
+.setting-sidebar .setting {
+    right: 0;
+}
+
+.setting-sidebar .sidebar {
+    right: -675px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #555;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+}
+
+body.sidebar-show {
+    overflow: hidden;
+}
+
+.navbar-hide {
+    overflow: hidden;
+}
+
+body.navbar-show {
+    overflow: scroll;
+}
+
+.fill {object-fit: fill;}
+.contain {object-fit: contain;}
+.cover {object-fit: cover;}
+.scale-down {object-fit: scale-down;}
+.none {object-fit: none;}
+
+.cart-item-show .CartSidebar {
+    right: 0;
+}
+.CartSidebar {
+    position: fixed;
+    max-width: 706px;
+    height: 100vh;
+    top: 0;
+    right: -706px;
+    width: 100%;
+    background: white;
+    z-index: 40 !important;
+    transition: all 0.3s ease-in-out;
+}
+.cart-item-show .cart-overlay {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.6) 0%,
+            rgba(0, 0, 0, 0.6) 100%
+    );
+    position: fixed;
+    z-index: 2;
+}
+body.cart-item-show {
+    overflow: hidden;
+}
+
+.scrollbar-style ::-webkit-scrollbar {
+    display: none !important;
+}
+input, textarea {
+    background-color: var(--backgrounds-secondary);
+}

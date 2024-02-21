@@ -1,0 +1,77 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Cart {
+  id: String!
+  status: String!
+  cartPopulatedAt: DateTime
+  seat: Float!
+  travel: Travel
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Travel {
+  id: Float!
+  slug: String!
+  name: String!
+  description: String!
+  startingDate: DateTime!
+  endingDate: DateTime!
+  price: Float!
+  nature: Float!
+  relax: Float!
+  history: Float!
+  culture: Float!
+  party: Float!
+  maxTravellers: Float!
+  availableSeats: Float!
+}
+
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+}
+
+type PaginatedTravel {
+  edges: [TravelEdge!]
+  pageInfo: PageInfo
+}
+
+type TravelEdge {
+  cursor: String!
+  node: Travel!
+}
+
+type SeatUpdate {
+  id: Float!
+  availableSeats: Float!
+}
+
+type Query {
+  travels(first: Int, after: String, last: Int, before: String): PaginatedTravel!
+  cart(id: String!): Cart!
+}
+
+type Mutation {
+  createCart: Cart!
+  updateCart(updateCartInput: UpdateCartInput!): Cart!
+  voidCart(id: String!): Cart!
+  closeCart(id: String!): Cart!
+}
+
+input UpdateCartInput {
+  id: String!
+  travelId: Int!
+  seats: Int!
+}
+
+type Subscription {
+  availableSeatsUpdated: SeatUpdate!
+}
